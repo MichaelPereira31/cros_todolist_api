@@ -1,10 +1,10 @@
 import { inject, injectable } from 'tsyringe';
-import { encrypt } from 'util/encrypt';
 
 import { IUpdateUserDTO } from '@modules/user/dtos/IUpdateUserDTO';
 import { IUserRepository } from '@modules/user/repositories/IUserRepository';
 import { User } from '@prisma/client';
 import { AppError } from '@shared/infra/errors/AppError';
+import { encrypt } from '@shared/util/encrypt';
 
 @injectable()
 export class UpdateUserUseCase {

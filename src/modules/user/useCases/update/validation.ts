@@ -1,9 +1,6 @@
 import { object, string } from 'yup';
 
 const updateUserSchema = object({
-  params: object({
-    id: string().required('O campo de id é obrigatório.'),
-  }),
   body: object({
     name: string(),
     password: string()
