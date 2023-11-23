@@ -6,7 +6,7 @@ export type IEncryptDTO = {
 };
 
 export function encrypt({ ivEncrypt, password }: IEncryptDTO): string {
-  const iv = ivEncrypt ? Buffer.from(ivEncrypt) : randomBytes(16);
+  const iv = ivEncrypt ? Buffer.from(ivEncrypt, 'hex') : randomBytes(16);
 
   const cipher = createCipheriv(
     'aes-256-cbc',
