@@ -7,6 +7,7 @@ import { FindByIdUserController } from '@modules/user/useCases/findById/FindById
 import { UpdateUserController } from '@modules/user/useCases/update/UpdateUserController';
 import updateUserSchema from '@modules/user/useCases/update/validation';
 
+import { isAuthenticate } from '../middleware/isAuthenticate';
 import { validation } from '../middleware/validation';
 
 const userRoutes = Router();
@@ -16,13 +17,14 @@ const createUserController = new CreateUserController();
 const updateUserController = new UpdateUserController();
 const deleteByIdUserController = new DeleteByIdUserController();
 
-userRoutes.get('/:id', findByIdUserController.handle);
+userRoutes.get('/', isAuthenticate, findByIdUserController.handle);
 userRoutes.post('/', validation(createUserSchema), createUserController.handle);
 userRoutes.put(
-  '/:id',
+  '/',
   validation(updateUserSchema),
+  isAuthenticate,
   updateUserController.handle,
 );
-userRoutes.delete('/:id', deleteByIdUserController.handle);
+userRoutes.delete('/', isAuthenticate, deleteByIdUserController.handle);
 
 export { userRoutes };
