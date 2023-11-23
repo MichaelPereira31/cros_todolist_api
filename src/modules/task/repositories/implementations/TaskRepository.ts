@@ -1,4 +1,5 @@
 import { ICreateTaskDTO } from '@modules/task/dtos/ICreateTaskDTO';
+import { IFindByStatusDTO } from '@modules/task/dtos/IFindByStatusDTO';
 import { IFindTaskDTO } from '@modules/task/dtos/IFindTaskDTO';
 import { IUpdateTaskDTO } from '@modules/task/dtos/IUpdateTaskDTO';
 import { Task } from '@prisma/client';
@@ -15,15 +16,19 @@ export class TaskRepository implements ITaskRepository {
   }
 
   async findById(id: string): Promise<Task | null> {
-    const task = await this.ctx.prisma.task.findUnique({ where: { id } });
+    const task = await this.ctx.prisma.task.findUnique({
+      where: { id },
+      include: { parentTask: true },
+    });
 
     return task;
   }
 
-  async findByStatus(status: unknown): Promise<Task[]> {
+  async findByStatus({ status, userId }: IFindByStatusDTO): Promise<Task[]> {
     const task = await this.ctx.prisma.task.findMany({
       where: {
         status,
+        userId,
       },
     });
 
