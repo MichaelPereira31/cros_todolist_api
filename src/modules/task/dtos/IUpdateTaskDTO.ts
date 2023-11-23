@@ -1,0 +1,8 @@
+import { StatusTask } from '@prisma/client';
+
+export type IUpdateTaskDTO = {
+  id: string;
+  title?: string;
+  description?: string;
+  status: StatusTask;
+};
