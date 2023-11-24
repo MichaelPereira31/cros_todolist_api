@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
-import { FindByStatusTaskUseCase } from './FindByStatusTaskUseCase';
+import { ListTaskUseCase } from './ListTaskUseCase';
 
-export class FindByStatusTaskController {
+export class ListTaskController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { status } = request.query;
     const userId = request.user.id;
 
-    const findByStatusTaskUseCase = container.resolve(FindByStatusTaskUseCase);
+    const listTaskUseCase = container.resolve(ListTaskUseCase);
 
-    const task = await findByStatusTaskUseCase.execute({ status, userId });
+    const task = await listTaskUseCase.execute({ status, userId });
 
     return response.json(task);
   }

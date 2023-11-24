@@ -1,6 +1,5 @@
 import { ICreateTaskDTO } from '@modules/task/dtos/ICreateTaskDTO';
-import { IFindByStatusDTO } from '@modules/task/dtos/IFindByStatusDTO';
-import { IFindTaskDTO } from '@modules/task/dtos/IFindTaskDTO';
+import { IListDTO } from '@modules/task/dtos/IListDTO';
 import { IUpdateTaskDTO } from '@modules/task/dtos/IUpdateTaskDTO';
 import { Task } from '@prisma/client';
 import { prismaClient } from '@shared/infra/database/prisma';
@@ -24,7 +23,7 @@ export class TaskRepository implements ITaskRepository {
     return task;
   }
 
-  async findByStatus({ status, userId }: IFindByStatusDTO): Promise<Task[]> {
+  async list({ status, userId }: IListDTO): Promise<Task[]> {
     const task = await this.ctx.prisma.task.findMany({
       where: {
         status,
@@ -34,17 +33,6 @@ export class TaskRepository implements ITaskRepository {
     });
 
     return task;
-  }
-
-  async find({ description, title }: IFindTaskDTO): Promise<boolean> {
-    const task = await this.ctx.prisma.task.findFirst({
-      where: {
-        title: { equals: title },
-        description: { equals: description },
-      },
-    });
-
-    return !!task;
   }
 
   async update({
