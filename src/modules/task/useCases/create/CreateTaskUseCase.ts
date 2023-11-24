@@ -26,12 +26,23 @@ export class CreateTaskUseCase {
 
     if (taskAlreadyExists) throw new AppError('TASK_ALREADY_EXISTS');
 
+    if (parentId) {
+      await this.taskRepository.findById(parentId).catch(() => {
+        throw new AppError('PARENT_TASK_ALREADY_EXISTS');
+      });
+    }
+
     const task = await this.taskRepository.create({
       description,
       title,
       status,
       userId,
-      parentId,
+    });
+
+    await this.taskRepository.update({
+      id: parentId,
+      parentId: task.id,
+      userId,
     });
 
     return task;
