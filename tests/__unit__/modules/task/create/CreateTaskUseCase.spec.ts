@@ -36,8 +36,7 @@ describe('Create Task Use Case', () => {
   const taskRepositoryMock: ITaskRepository = {
     create: jest.fn(),
     delete: jest.fn(),
-    find: jest.fn(),
-    findByStatus: jest.fn(),
+    list: jest.fn(),
     findById: jest.fn(),
     update: jest.fn(),
   };
@@ -45,7 +44,6 @@ describe('Create Task Use Case', () => {
   it('Should be able to create a task', async () => {
     const { sut } = makeSut();
 
-    jest.spyOn(taskRepositoryMock, 'find').mockResolvedValue(null);
     jest.spyOn(taskRepositoryMock, 'findById').mockResolvedValue(taskMock);
     jest.spyOn(taskRepositoryMock, 'create').mockResolvedValue(taskMock);
     const httpRequest = httpRequestMock();
@@ -61,7 +59,6 @@ describe('Create Task Use Case', () => {
   it('Should be able to return error parent task not found', async () => {
     const { sut } = makeSut();
 
-    jest.spyOn(taskRepositoryMock, 'find').mockResolvedValue(null);
     jest.spyOn(taskRepositoryMock, 'findById').mockRejectedValueOnce(null);
     jest.spyOn(taskRepositoryMock, 'create').mockResolvedValue(taskMock);
     const httpRequest = httpRequestMock();

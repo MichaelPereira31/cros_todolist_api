@@ -32,8 +32,7 @@ describe('Find Task Use Case', () => {
   const taskRepositoryMock: ITaskRepository = {
     create: jest.fn(),
     delete: jest.fn(),
-    find: jest.fn(),
-    findByStatus: jest.fn(),
+    list: jest.fn(),
     findById: jest.fn(),
     update: jest.fn(),
   };
