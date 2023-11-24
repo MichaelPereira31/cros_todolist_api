@@ -7,9 +7,33 @@
   <li>Docker Compose</li>
   <li>Passos para Executar</li>
 </ul>
+<hr>
+<h3>Metodologias</h3>
 
-<h3>Passos para Executar</h3>
+- **Integração Contínua**
+- **Entrega Contínua**
+- **Commits Convencionais**
+- **Arquitetura Limpa**
+- **Diagramas de Dependência**
+- **Fluxo de Git (GitFlow)**
+- **GitFlow**
+- **Casos de Uso**
+  <hr>
+<h3>Desenvolvido com:</h3>
 
+* [TypeScript](https://www.typescriptlang.org)
+* [Eslint](https://eslint.org)
+* [Prettier](https://prettier.io/)
+* [Lint-staged](https://github.com/okonet/lint-staged)
+* [Jest](https://jestjs.io/pt-BR)
+* [Validator](https://www.npmjs.com/package/yup)
+* [Express](https://expressjs.com/pt-br)
+* [Prisma](https://www.prisma.io)
+* [Docker](https://www.docker.com)
+* [Postgres](https://www.postgresql.org)
+<hr>
+
+<h1 align="center">Passos para Executar</h1>
 <h4>Clonar o Repositório</h4>
     
  > git clone https://github.com/MichaelPereira31/cros_todolist_api.git
