@@ -18,7 +18,7 @@ export class TaskRepository implements ITaskRepository {
   async findById(id: string): Promise<Task | null> {
     const task = await this.ctx.prisma.task.findUnique({
       where: { id },
-      include: { parentTask: true },
+      include: { parentTask: true, subtasks: true },
     });
 
     return task;
@@ -30,6 +30,7 @@ export class TaskRepository implements ITaskRepository {
         status,
         userId,
       },
+      include: { parentTask: true, subtasks: true },
     });
 
     return task;
@@ -51,11 +52,10 @@ export class TaskRepository implements ITaskRepository {
     status,
     description,
     title,
-    userId,
     parentId,
   }: IUpdateTaskDTO): Promise<Task> {
     const task = await this.ctx.prisma.task.update({
-      where: { id, userId },
+      where: { id },
       data: { status, description, title, parentId },
     });
 

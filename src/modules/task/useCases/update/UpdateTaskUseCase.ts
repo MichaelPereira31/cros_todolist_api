@@ -17,7 +17,6 @@ export class UpdateTaskUseCase {
     status,
     description,
     title,
-    userId,
   }: IUpdateTaskDTO): Promise<Task> {
     const task = await this.taskRepository.findById(id);
 
@@ -28,7 +27,6 @@ export class UpdateTaskUseCase {
       status,
       description,
       title,
-      userId,
     });
 
     return updatedTask;

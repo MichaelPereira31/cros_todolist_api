@@ -6,5 +6,4 @@ export type IUpdateTaskDTO = {
   description?: string;
   status?: StatusTask;
   parentId?: string;
-  userId: string;
 };
