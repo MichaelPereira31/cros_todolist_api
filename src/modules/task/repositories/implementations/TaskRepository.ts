@@ -51,10 +51,12 @@ export class TaskRepository implements ITaskRepository {
     status,
     description,
     title,
+    userId,
+    parentId,
   }: IUpdateTaskDTO): Promise<Task> {
     const task = await this.ctx.prisma.task.update({
-      where: { id },
-      data: { status, description, title },
+      where: { id, userId },
+      data: { status, description, title, parentId },
     });
 
     return task;

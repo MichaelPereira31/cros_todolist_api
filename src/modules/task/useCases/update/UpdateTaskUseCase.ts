@@ -17,16 +17,18 @@ export class UpdateTaskUseCase {
     status,
     description,
     title,
+    userId,
   }: IUpdateTaskDTO): Promise<Task> {
     const task = await this.taskRepository.findById(id);
 
-    if (!task) throw new AppError('USER_NOT_FOUND');
+    if (!task) throw new AppError('TASK_NOT_FOUND');
 
     const updatedTask = await this.taskRepository.update({
       id,
       status,
       description,
       title,
+      userId,
     });
 
     return updatedTask;
