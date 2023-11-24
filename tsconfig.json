@@ -1,15 +1,30 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2022",
+    "lib": [
+      "es2022"
+    ],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "commonjs",
-    "rootDir": "./src",
+    "rootDirs": [
+      "src",
+      "tests"
+    ],
     "baseUrl": "./src",
     "paths": {
-      "@modules/*": ["./modules/*"],
-      "@config/*": ["./config/*"],
-      "@shared/*": ["./shared/*"],
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@errors/*": [
+        "errors/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ]
     },
     "typeRoots": [
       "./node_modules/@types",
@@ -22,6 +37,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictNullChecks": false,
     "useUnknownInCatchVariables": false,
     "skipLibCheck": true
   }

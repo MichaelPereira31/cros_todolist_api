@@ -1,0 +1,329 @@
+{
+  "info": {
+    "title": "Cros TodoList API",
+    "license": {
+      "name": "Cros TodoList API",
+      "url": "http://localhost:3000"
+    },
+    "version": "1.0.0",
+    "description": "A API de To-Do List possibilita o gerenciamento de tarefas e usuários associados a essas tarefas. Ela oferece funcionalidades para registro de usuários e manipulação de suas respectivas listas de ações"
+  },
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost:3333"
+    }
+  ],
+  "paths": {
+    "/auth": {
+      "post": {
+        "tags": ["Authenticate"],
+        "summary": "Autenticar o usuário",
+        "description": "Essa rota será responsável por autenticar o usuário",
+        "operationId": "AutheticateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Buscando por um usuário autenticado",
+        "description": "Essa rota será responsável por retornar buscar pelo usuário autenticado",
+        "operationId": "FindByIdUser",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User"],
+        "summary": "Cria um  novo usuário",
+        "description": "Essa rota será responsável por criar um novo usuário",
+        "operationId": "CreateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Atualiza o usuário autenticado",
+        "description": "Essa rota será responsável por atualizar o usuário autenticado",
+        "operationId": "UpdateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Deleta o usuário autenticado",
+        "description": "Essa rota será responsável por deletar o usuário autenticado",
+        "operationId": "DeleteUser",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/task": {
+
+      "post": {
+        "tags": ["Task"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Cria uma  nova task",
+        "description": "Essa rota será responsável por criar uma nova task",
+        "operationId": "CreateTask",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/task/{id}": {
+      "get": {
+        "tags": ["Task"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Buscando por task autenticado",
+        "description": "Essa rota será responsável por buscar umas task pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID",
+            "required": true
+          }
+        ],
+        "operationId": "FindByIdTask",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Task"],
+        "security": [{ "bearerAuth": [] }],
+        "summary": "Atualiza o usuário autenticado",
+        "description": "Essa rota será responsável por atualizar o usuário autenticado",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateTask"
+              }
+            }
+          }
+        },
+        "operationId": "UpdateUser",
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          },
+          "400": {
+            "description": "Not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Task"],
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID",
+            "required": true
+          }
+        ],
+        "summary": "Deleta uma task",
+        "description": "Essa rota será responsável por deletar uma task",
+        "operationId": "DeleteTask",
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuthUser": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateTask": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateTask": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "parentId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
