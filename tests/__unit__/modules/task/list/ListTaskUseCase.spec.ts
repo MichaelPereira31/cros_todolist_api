@@ -1,14 +1,14 @@
 import { ITaskRepository } from '@modules/task/repositories/ITaskRepository';
-import { FindByStatusTaskUseCase } from '@modules/task/useCases/findByStatus/FindByStatusTaskUseCase';
+import { ListTaskUseCase } from '@modules/task/useCases/ListStatus/ListTaskUseCase';
 import { StatusTask } from '@prisma/client';
 
 interface ISutTypes {
-  sut: (taskRepository: ITaskRepository) => FindByStatusTaskUseCase;
+  sut: (taskRepository: ITaskRepository) => ListTaskUseCase;
 }
 
 const makeSut = (): ISutTypes => {
   const sut = (taskRepository: ITaskRepository) =>
-    new FindByStatusTaskUseCase(taskRepository);
+    new ListTaskUseCase(taskRepository);
 
   return { sut };
 };
@@ -35,8 +35,7 @@ describe('Find By Status Task Use Case', () => {
   const taskRepositoryMock: ITaskRepository = {
     create: jest.fn(),
     delete: jest.fn(),
-    find: jest.fn(),
-    findByStatus: jest.fn(),
+    list: jest.fn(),
     findById: jest.fn(),
     update: jest.fn(),
   };
@@ -44,23 +43,11 @@ describe('Find By Status Task Use Case', () => {
   it('Should be able to return tasks', async () => {
     const { sut } = makeSut();
 
-    jest.spyOn(taskRepositoryMock, 'findByStatus').mockResolvedValue(taskMock);
+    jest.spyOn(taskRepositoryMock, 'list').mockResolvedValue(taskMock);
     const httpRequest = httpRequestMock();
 
     const response = await sut(taskRepositoryMock).execute(httpRequest);
 
     expect(response).toEqual(taskMock);
-  });
-
-  it('Should be able to return error task not found', async () => {
-    const { sut } = makeSut();
-
-    jest.spyOn(taskRepositoryMock, 'findByStatus').mockResolvedValue([]);
-    const httpRequest = httpRequestMock();
-
-    await expect(sut(taskRepositoryMock).execute(httpRequest)).rejects.toEqual({
-      message: 'TASKS_NOT_FOUND',
-      statusCode: 400,
-    });
   });
 });
